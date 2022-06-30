@@ -43,8 +43,8 @@ spring:
       on-profile: test
   datasource:
     hikari:
-      jdbc-url: jdbc:log4jdbc:h2:mem:mileage;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-      driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+      jdbc-url: jdbc:h2:mem:mileage;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+      driver-class-name: org.h2.Driver
       username: sa
       password:
       pool-name: hikari-db-pool
@@ -68,7 +68,6 @@ spring:
     activate:
       on-profile: prod
   datasource:
-    platform: mysql
     hikari:
       poolName: hikari-default-
       driver-class-name: org.mariadb.jdbc.Driver

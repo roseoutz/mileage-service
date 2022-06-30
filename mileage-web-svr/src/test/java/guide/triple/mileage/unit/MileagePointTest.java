@@ -1,8 +1,8 @@
 package guide.triple.mileage.unit;
 
-import guide.triple.mileage.entity.MileageReviewEntity;
-import guide.triple.mileage.entity.composite.MileageId;
-import guide.triple.mileage.repository.MileageReviewRepository;
+import guide.triple.mileage.domain.entity.MileageReviewEntity;
+import guide.triple.mileage.domain.entity.composite.MileageId;
+import guide.triple.mileage.domain.repository.MileageReviewRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
