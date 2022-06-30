@@ -1,2 +1,3 @@
 rootProject.name = 'mileage-service'
 
+include 'mileage-web-svr'
