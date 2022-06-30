@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="35559fda-7b3d-435e-88d8-47dd154bcfd6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mileage-web-svr/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mileage-web-svr/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mileage-web-svr/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mileage-web-svr/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mileage-web-svr/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mileage-web-svr/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mileage-web-svr/settings.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mileage-web-svr/src/main/java/guide/triple/mileage/MileageWebSvrApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mileage-web-svr/src/main/java/guide/triple/mileage/config/CustomBeanConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mileage-web-svr/src/main/java/guide/triple/mileage/controller/MileageApiController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mileage-web-svr/src/main/java/guide/triple/mileage/converter/BooleanToStringConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mileage-web-svr/src/main/java/guide/triple/mileage/dto/EventsRequestDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mileage-web-svr/src/main/java/guide/triple/mileage/dto/MileageHistoryDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mileage-web-svr/src/main/java/guide/triple/mileage/dto/MileagePointInfoDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mileage-web-svr/src/main/java/guide/triple/mileage/dto/ResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mileage-web-svr/src/main/java/guide/triple/mileage/entity/MileageHistoryEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mileage-web-svr/src/main/java/guide/triple/mileage/entity/MileagePointInfoEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mileage-web-svr/src/main/java/guide/triple/mileage/entity/MileageReviewEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mileage-web-svr/src/main/java/guide/triple/mileage/entity/composite/MileageId.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mileage-web-svr/src/main/java/guide/triple/mileage/event/EventHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mileage-web-svr/src/main/java/guide/triple/mileage/event/MileagePointEventFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mileage-web-svr/src/main/java/guide/triple/mileage/event/impl/AddEventHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mileage-web-svr/src/main/java/guide/triple/mileage/event/impl/DeleteEventHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mileage-web-svr/src/main/java/guide/triple/mileage/event/impl/ModifyEventHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mileage-web-svr/src/main/java/guide/triple/mileage/repository/MileageHistoryRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mileage-web-svr/src/main/java/guide/triple/mileage/repository/MileagePointInfoRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mileage-web-svr/src/main/java/guide/triple/mileage/repository/MileageReviewRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mileage-web-svr/src/main/java/guide/triple/mileage/service/MileagePointService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mileage-web-svr/src/main/java/guide/triple/mileage/service/impl/DefaultMileagePointService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mileage-web-svr/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mileage-web-svr/src/test/java/guide/triple/mileage/MileageWebSvrApplicationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mileage-web-svr/src/test/java/guide/triple/mileage/unit/MileagePointTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/mileage-web-svr">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/mileage-web-svr" />
+    <option name="ROOT_SYNC" value="SYNC" />
+  </component>
+  <component name="JpbToolWindowState">
+    <option name="myId2FirstActivated">
+      <map>
+        <entry key="com.haulmont.jpb.jpaInspector" value="true" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="true" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
+      </map>
+    </option>
+    <option name="myId2Visible">
+      <map>
+        <entry key="com.haulmont.jpb.jpaInspector" value="false" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="false" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="false" />
+      </map>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2BH4GewbyJyQVRZqinNl2V4ow9J" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="false" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "jdk.selected.JAVA_MODULE": "adopt-openjdk-11",
+    "last_opened_file_path": "/Users/bandisnc/Desktop/Study/mileage-service",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/mileage-web-svr/src/main/resources" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="guilde.triple.mileage.entity" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.MileagePointTest.addTest">
+    <configuration name="MileagePointTest.addTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/mileage-web-svr" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;guide.triple.mileage.unit.MileagePointTest.addTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="MileageWebSvrApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="mileage-web-svr.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="guide.triple.mileage.MileageWebSvrApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MileageWebSvrApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="mileage-web-svr.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="guilde.triple.mileage.MileageWebSvrApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.MileagePointTest.addTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="35559fda-7b3d-435e-88d8-47dd154bcfd6" name="Changes" comment="" />
+      <created>1656549582770</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1656549582770</updated>
+      <workItem from="1656549586026" duration="18379000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
