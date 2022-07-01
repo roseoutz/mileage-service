@@ -1,5 +1,6 @@
 package guide.triple.mileage.web.service.impl;
 
+import guide.triple.mileage.common.constant.ActionType;
 import guide.triple.mileage.domain.dto.MileageHistoryDTO;
 import guide.triple.mileage.domain.dto.MileageReviewDTO;
 import guide.triple.mileage.domain.service.MileageHistoryManageService;
@@ -38,7 +39,7 @@ public class DefaultMileagePointService implements MileagePointService {
                 throw new IllegalStateException("");
         }
 
-        addHistory(reviewDTO);
+        addHistory(reviewDTO, eventsRequestDTO.getAction());
 
         return ResponseDTO
                 .builder()
@@ -78,14 +79,15 @@ public class DefaultMileagePointService implements MileagePointService {
                 .build();
     }
 
-    private void addHistory(final MileageReviewDTO reviewDTO) {
+    private void addHistory(final MileageReviewDTO reviewDTO, final ActionType actionType) {
         ExecutorService executorService = Executors.newCachedThreadPool();
-        executorService.execute(() -> historyService.add(toHistoryDTO(reviewDTO)));
+        executorService.execute(() -> historyService.add(toHistoryDTO(reviewDTO, actionType)));
     }
 
-    private MileageHistoryDTO toHistoryDTO(MileageReviewDTO reviewDTO) {
+    private MileageHistoryDTO toHistoryDTO(MileageReviewDTO reviewDTO, ActionType actionType) {
         return MileageHistoryDTO
                 .builder()
+                .actionType(actionType)
                 .userId(reviewDTO.getUserId())
                 .placeId(reviewDTO.getPlaceId())
                 .reviewId(reviewDTO.getReviewId())

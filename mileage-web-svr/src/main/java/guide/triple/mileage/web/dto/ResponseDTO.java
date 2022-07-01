@@ -2,6 +2,7 @@ package guide.triple.mileage.web.dto;
 
 import guide.triple.mileage.common.constant.ErrorCode;
 import lombok.Builder;
+import lombok.Getter;
 
 import java.io.Serializable;
 
@@ -16,7 +17,7 @@ import java.io.Serializable;
  * -----------------------------------------------------------
  * 2022/06/30        kimdonggyuuuuu       최초 생성
  */
-
+@Getter
 @Builder
 public class ResponseDTO implements Serializable {
 
@@ -24,7 +25,7 @@ public class ResponseDTO implements Serializable {
 
     private boolean success;
     private int statusCode;
-    private String errorCode;
+    private String error;
     private String errorMsg;
     private Object result;
 }

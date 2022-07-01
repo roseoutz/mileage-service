@@ -31,9 +31,8 @@ public class MileagePointTest {
     public void addTest() {
         MileageReviewEntity reviewEntity = new MileageReviewEntity();
 
-        MileageId mileageId = new MileageId(UUID.randomUUID().toString(), UUID.randomUUID().toString());
-
-        reviewEntity.setOid(mileageId);
+        reviewEntity.setUserId(UUID.randomUUID().toString());
+        reviewEntity.setPlaceId(UUID.randomUUID().toString());
         reviewEntity.setReviewId(UUID.randomUUID().toString());
         reviewEntity.setHasBonus(true);
         reviewEntity.setHasImage(true);
@@ -41,7 +40,7 @@ public class MileagePointTest {
 
         MileageReviewEntity savedEntity = mileageReviewRepository.saveAndFlush(reviewEntity);
 
-        Assertions.assertEquals(savedEntity.getOid(), reviewEntity.getOid());
+        Assertions.assertEquals(savedEntity.getUserId(), reviewEntity.getUserId());
     }
 
 }

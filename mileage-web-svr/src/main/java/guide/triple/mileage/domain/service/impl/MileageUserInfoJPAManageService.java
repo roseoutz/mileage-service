@@ -46,15 +46,17 @@ public class MileageUserInfoJPAManageService implements MileageUserInfoManageSer
     @Transactional
     public void update(String userId, long point) {
         userInfoRepository.findById(userId)
-                .ifPresent(userInfoEntity -> {
-                    long value = userInfoEntity.getPoint() + point;
+                .ifPresentOrElse(userInfoEntity -> {
+                        long value = userInfoEntity.getPoint() + point;
 
-                    if (value < 0) {
-                        value = 0;
-                    }
+                        if (value < 0) {
+                            value = 0;
+                        }
 
-                    userInfoEntity.setPoint(value);
-                });
+                        userInfoEntity.setPoint(value);
+                    }, () -> {
+                        userInfoRepository.save(new MileageUserInfoEntity(userId, point));
+                    });
     }
 
     private MileageUserInfoDTO toDTO(MileageUserInfoEntity userInfoEntity) {

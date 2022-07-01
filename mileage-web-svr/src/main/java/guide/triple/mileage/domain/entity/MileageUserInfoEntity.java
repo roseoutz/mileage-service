@@ -21,12 +21,14 @@ import javax.persistence.Table;
  */
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "triple_mileage_user_info")
 public class MileageUserInfoEntity {
 
     @Id
-    @Column(name = "user_id", length = 10)
+    @Column(name = "user_id", length = 36)
     private String userId;
 
     private long point = 0;

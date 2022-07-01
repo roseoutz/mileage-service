@@ -4,7 +4,11 @@ import guide.triple.mileage.web.dto.ResponseDTO;
 import guide.triple.mileage.web.dto.EventsRequestDTO;
 import guide.triple.mileage.web.service.MileagePointService;
 import guide.triple.mileage.web.service.MileageUserInfoService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,19 +23,25 @@ import org.springframework.web.bind.annotation.*;
  * -----------------------------------------------------------
  * 2022/06/30        kimdonggyuuuuu       최초 생성
  */
+@Slf4j
 @RequiredArgsConstructor
 @RestController
 public class MileageApiController {
     private final MileagePointService mileagePointService;
     private final MileageUserInfoService mileageUserInfoService;
 
+    @Operation(summary = "사용자 Clue Mileage 적립 API")
     @PostMapping(value = "/events")
     public ResponseEntity<ResponseDTO> events(@RequestBody EventsRequestDTO requestDTO) {
+
+        log.info("[Event Log] request : {}", requestDTO.toString());
+
         ResponseDTO responseDTO = mileagePointService.event(requestDTO);
 
         return ResponseEntity.ok(responseDTO);
     }
 
+    @Operation(summary = "사용자 Clue Mileage 조회 API")
     @GetMapping(value = "/get/{userId}")
     public ResponseEntity<ResponseDTO> get(@PathVariable String userId) {
         ResponseDTO responseDTO = mileageUserInfoService.get(userId);

@@ -5,6 +5,7 @@ import guide.triple.mileage.domain.entity.composite.MileageId;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 /**
  * packageName    : guide.triple.mileage.entity
@@ -19,6 +20,8 @@ import javax.persistence.*;
  */
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @IdClass(MileageId.class)
 @Entity
 @Table(
@@ -54,5 +57,16 @@ public class MileageReviewEntity {
     @Convert(converter=BooleanToStringConverter.class)
     @Column(name = "has_bonus", length = 1)
     private boolean hasBonus = false;
+
+    @Column(name="insert_time")
+    protected long insertTime = System.currentTimeMillis();
+
+    @Column(name="update_time")
+    protected long updateTime = this.insertTime;
+
+    @PreUpdate
+    public void preUpdate() {
+        updateTime = System.currentTimeMillis();
+    }
 
 }

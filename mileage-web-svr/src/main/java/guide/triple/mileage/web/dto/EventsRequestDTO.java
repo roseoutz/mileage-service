@@ -3,6 +3,7 @@ package guide.triple.mileage.web.dto;
 import guide.triple.mileage.common.constant.ActionType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -17,6 +18,8 @@ import java.util.List;
  * -----------------------------------------------------------
  * 2022/06/30        kimdonggyuuuuu       최초 생성
  */
+
+@ToString
 @Getter
 @AllArgsConstructor
 public class EventsRequestDTO {

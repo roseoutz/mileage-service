@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * packageName    : guide.triple.mileage.repository
@@ -24,5 +25,7 @@ public interface MileageReviewRepository extends JpaRepository<MileageReviewEnti
     List<MileageReviewEntity> findByPlaceId(String placeId);
 
     boolean existsByPlaceId(String placeId);
+
+    Optional<MileageReviewEntity> findFirstByPlaceIdOrderByInsertTimeAsc(String placeId);
 
 }

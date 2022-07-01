@@ -1,4 +1,4 @@
-package guide.triple.mileage.config;
+package guide.triple.mileage.web.config;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Configuration;

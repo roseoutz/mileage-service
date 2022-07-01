@@ -1,5 +1,7 @@
 package guide.triple.mileage.domain.service.impl;
 
+import guide.triple.mileage.common.constant.ErrorCode;
+import guide.triple.mileage.common.exception.MileageException;
 import guide.triple.mileage.domain.dto.MileageReviewDTO;
 import guide.triple.mileage.domain.entity.MileageReviewEntity;
 import guide.triple.mileage.domain.entity.composite.MileageId;
@@ -37,17 +39,25 @@ public class MileageReviewJPAManageService implements MileageReviewManageService
 
         MileageReviewDTO.MileageReviewDTOBuilder builder = mileageReviewDTO.toBuilder();
 
+        boolean isExistReview = mileageReviewRepository.existsById(new MileageId(mileageReviewDTO.getUserId(), mileageReviewDTO.getPlaceId()));
+
+        if (isExistReview) {
+            throw new MileageException(ErrorCode.ERROR_REGISTERED_REVIEW_EXIST);
+        }
+
         if (isFirstReview(mileageReviewDTO.getPlaceId())) {
             builder.hasBonus(true);
         }
 
-        MileageReviewEntity savedEntity = mileageReviewRepository.saveAndFlush(toEntity(builder.build()));
+        MileageReviewDTO dto = builder.build();
 
-        addPoint(
-                mileageReviewDTO.getUserId(),
-                getPoint(mileageReviewDTO.isHasText()),
-                getPoint(mileageReviewDTO.isHasImage()),
-                getPoint(mileageReviewDTO.isHasBonus())
+        MileageReviewEntity savedEntity = mileageReviewRepository.saveAndFlush(toEntity(dto));
+
+        updatePoint(
+                dto.getUserId(),
+                dto.isHasText() ? 1 : 0,
+                dto.isHasImage() ? 1 : 0,
+                dto.isHasBonus() ? 1 : 0
         );
 
         return toDTO(savedEntity);
@@ -61,7 +71,7 @@ public class MileageReviewJPAManageService implements MileageReviewManageService
         if (optionalMileageReviewEntity.isPresent()) {
             MileageReviewEntity entity = optionalMileageReviewEntity.get();
 
-            addPoint(
+            updatePoint(
                     mileageReviewDTO.getUserId(),
                     getPoint(entity.isHasText(), mileageReviewDTO.isHasText()),
                     getPoint(entity.isHasImage(), mileageReviewDTO.isHasImage()),
@@ -76,7 +86,8 @@ public class MileageReviewJPAManageService implements MileageReviewManageService
 
             return toDTO(entity);
         }
-        return null;
+
+        throw new MileageException(ErrorCode.ERROR_REVIEW_NOT_EXIST);
     }
 
     @Transactional
@@ -88,20 +99,26 @@ public class MileageReviewJPAManageService implements MileageReviewManageService
         if (optionalMileageReviewEntity.isPresent()) {
             MileageReviewEntity entity = optionalMileageReviewEntity.get();
 
-            addPoint(
+            updatePoint(
                     mileageReviewDTO.getUserId(),
-                    getPoint(entity.isHasText()),
-                    getPoint(entity.isHasImage()),
-                    getPoint(entity.isHasBonus())
+                    entity.isHasText() ? -1 : 0,
+                    entity.isHasImage() ? -1 : 0,
+                    entity.isHasBonus() ? -1 : 0
 
             );
         }
 
         mileageReviewRepository.deleteById(id);
+
+        mileageReviewRepository.findFirstByPlaceIdOrderByInsertTimeAsc(mileageReviewDTO.getPlaceId())
+                .ifPresent(e -> {
+                    e.setHasBonus(true);
+                    updatePoint(e.getUserId(), 0, 0, 1);
+                });
     }
 
     private boolean isFirstReview(String placeId) {
-        return mileageReviewRepository.existsByPlaceId(placeId);
+        return !mileageReviewRepository.existsByPlaceId(placeId);
     }
 
     private long getPoint(boolean oldValue, boolean newValue) {
@@ -120,14 +137,7 @@ public class MileageReviewJPAManageService implements MileageReviewManageService
         return 0;
     }
 
-    private long getPoint(boolean value) {
-        if (value) {
-            return -1;
-        }
-        return 0;
-    }
-
-    private void addPoint(String userId, long text, long image, long bouns) {
+    private void updatePoint(String userId, long text, long image, long bouns) {
         userInfoService.update(userId, text + image + bouns);
     }
 

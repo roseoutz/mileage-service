@@ -42,6 +42,7 @@ public class MileageHistoryEntity {
     @Column(name = "review_id", length = 36)
     private String reviewId;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "action_type", length = 10)
     private ActionType actionType;
 
