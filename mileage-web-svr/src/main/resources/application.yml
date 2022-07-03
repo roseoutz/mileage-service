@@ -34,11 +34,12 @@ logging:
   charset:
     console: UTF-8
   level:
-    root: debug
-    log4jdbc.log4j2: debug
-    com.zaxxer.hikari.HikariConfig: debug
-    com.zaxxer.hikari: debug
-    guide.triple: debug
+    root: info
+    log4jdbc.log4j2: info
+    com.zaxxer.hikari.HikariConfig: info
+    com.zaxxer.hikari: info
+    guide.triple: info
+    com.hazelcast: info
 
 ---
 spring:
