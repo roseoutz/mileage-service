@@ -1,5 +1,6 @@
 # Triple Backend 사전과제
 
+![image1](https://user-images.githubusercontent.com/29092884/177048311-93430b84-770b-4ba4-aff9-03ac9857448a.png)
 
 ---
 
@@ -13,8 +14,7 @@ Triple Backend 사전과제 제출물 입니다.
 - **Cache : Hazelcast**
 
 # 실행 방법
-
-![Untitled](Triple%20Backend%20%E1%84%89%E1%85%A1%E1%84%8C%E1%85%A5%E1%86%AB%E1%84%80%E1%85%AA%E1%84%8C%E1%85%A6%20c0a5784097f64fdc8af02338e5e8e789/Untitled%201.png)
+![image2](https://user-images.githubusercontent.com/29092884/177048336-3f0a1c10-5fc0-4901-bf5a-047758c01dd0.png)
 
 1. Docker를 이용한 실행 방법
     - mileage-service/docker 디렉토리로 이동
@@ -78,5 +78,5 @@ Triple Backend 사전과제 제출물 입니다.
 
 
 ## ERD
+![image3](https://user-images.githubusercontent.com/29092884/177048347-8a319779-b5a7-4609-817b-734891955681.png)
 
-![Untitled](Triple%20Backend%20%E1%84%89%E1%85%A1%E1%84%8C%E1%85%A5%E1%86%AB%E1%84%80%E1%85%AA%E1%84%8C%E1%85%A6%20c0a5784097f64fdc8af02338e5e8e789/Untitled%202.png)
