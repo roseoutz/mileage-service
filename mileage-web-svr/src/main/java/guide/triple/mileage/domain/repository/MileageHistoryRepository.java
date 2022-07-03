@@ -1,9 +1,12 @@
 package guide.triple.mileage.domain.repository;
 
 import guide.triple.mileage.domain.entity.MileageHistoryEntity;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * packageName    : guide.triple.mileage.repository
@@ -18,4 +21,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface MileageHistoryRepository extends JpaRepository<MileageHistoryEntity, String>, JpaSpecificationExecutor<MileageHistoryEntity> {
+
+    List<MileageHistoryEntity> findAllByUserId(String userId, Pageable pageable);
+
 }

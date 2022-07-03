@@ -47,7 +47,8 @@ public class MileageHistoryJPAManageService implements MileageHistoryManageServi
 
     @Override
     public List<MileageHistoryDTO> search(SearchParam searchParam) {
-        return historyRepository.findAll(toSpecification(searchParam), Sort.by(Sort.Direction.DESC, "insertTime"))
+        return historyRepository.findAllByUserId((String) searchParam.getSearchKeyword().get("userId")
+                        , PageRequest.of(searchParam.getPage() - 1, searchParam.getPagePerSize(), Sort.by(Sort.Direction.DESC, "insertTime")))
                 .stream()
                 .map(this::toDto)
                 .collect(Collectors.toList());
@@ -56,20 +57,9 @@ public class MileageHistoryJPAManageService implements MileageHistoryManageServi
     private Specification<MileageHistoryEntity> toSpecification(final SearchParam searchParam) {
         return (root, query, criteriaBuilder) -> {
 
-            if (searchParam.getSearchKeyword().containsKey("oid")) {
-                criteriaBuilder.equal(root.get("oid"), searchParam.getSearchKeyword().get("oid"));
-            }
-
             if (searchParam.getSearchKeyword().containsKey("userId")) {
-                criteriaBuilder.equal(root.get("userId"), searchParam.getSearchKeyword().get("userId"));
-            }
-
-            if (searchParam.getSearchKeyword().containsKey("placeId")) {
-                criteriaBuilder.equal(root.get("placeId"), searchParam.getSearchKeyword().get("placeId"));
-            }
-
-            if (searchParam.getSearchKeyword().containsKey("reviewId")) {
-                criteriaBuilder.equal(root.get("reviewId"), searchParam.getSearchKeyword().get("reviewId"));
+                String userId = (String) searchParam.getSearchKeyword().get("userId");
+                criteriaBuilder.equal(root.get("userId"), userId);
             }
 
             return criteriaBuilder.conjunction();

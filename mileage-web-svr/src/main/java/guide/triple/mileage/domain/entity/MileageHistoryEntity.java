@@ -26,7 +26,15 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "triple_mileage_history")
+@Table(
+        name = "triple_mileage_history",
+        indexes = {
+                @Index(
+                        name = "idx_history_userId",
+                        columnList = "user_id"
+                )
+        }
+)
 public class MileageHistoryEntity {
 
     @Id

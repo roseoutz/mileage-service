@@ -64,7 +64,7 @@ public class ReivewPointApiTest {
 
     @Test
     @Order(1)
-    @DisplayName("포인트 적립 API 테스트")
+    @DisplayName("등록 시 포인트 적립 API 테스트")
     void add_review_api_test() {
         ResponseEntity<ResponseDTO> responseDTOResponseEntity = mileageApiController.events(getEventRequest(ActionType.ADD, "test", "Good!!"));
 
@@ -78,7 +78,7 @@ public class ReivewPointApiTest {
 
     @Test
     @Order(2)
-    @DisplayName("포인트 적립 API 테스트")
+    @DisplayName("수정 시 포인트 적립 API 테스트")
     void mod_review_api_test() {
         ResponseEntity<ResponseDTO> responseDTOResponseEntity = mileageApiController.events(getEventRequest(ActionType.MOD, "test", null));
 
@@ -92,7 +92,7 @@ public class ReivewPointApiTest {
 
     @Test
     @Order(3)
-    @DisplayName("포인트 적립 API 테스트")
+    @DisplayName("삭제 시 포인트 적립 API 테스트")
     void delete_review_api_test() {
         ResponseEntity<ResponseDTO> responseDTOResponseEntity = mileageApiController.events(getEventRequest(ActionType.DELETE, "test", null));
 
@@ -116,6 +116,22 @@ public class ReivewPointApiTest {
         Assertions.assertEquals(HttpStatus.OK, responseDTOResponseEntity.getStatusCode());
         Assertions.assertTrue(responseDTO.isSuccess());
         Assertions.assertEquals(0, mileageUserInfoDTO.getPoint());
+    }
+
+    @Test
+    @Order(5)
+    @DisplayName("리뷰 포인트 적립 히스토리 API 테스트")
+    void get_user_point_history_test() {
+        ResponseEntity<ResponseDTO> responseDTOResponseEntity = mileageApiController.history(
+                UUID.nameUUIDFromBytes("test".getBytes(StandardCharsets.UTF_8)).toString(),
+                10,
+                1
+        );
+
+        ResponseDTO responseDTO = responseDTOResponseEntity.getBody();
+        assert responseDTO != null;
+        Assertions.assertEquals(HttpStatus.OK, responseDTOResponseEntity.getStatusCode());
+        Assertions.assertTrue(responseDTO.isSuccess());
     }
 
 }

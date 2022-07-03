@@ -1,7 +1,9 @@
 package guide.triple.mileage.manage;
 
 import guide.triple.mileage.common.constant.ErrorCode;
+import guide.triple.mileage.common.dto.SearchParam;
 import guide.triple.mileage.common.exception.MileageException;
+import guide.triple.mileage.domain.dto.MileageHistoryDTO;
 import guide.triple.mileage.domain.dto.MileageReviewDTO;
 import guide.triple.mileage.domain.dto.MileageUserInfoDTO;
 import guide.triple.mileage.domain.service.MileageHistoryManageService;
@@ -13,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -36,6 +39,9 @@ public class ReviewPointTest {
 
     @Autowired
     private MileageUserInfoManageService userInfoManageService;
+
+    @Autowired
+    private MileageHistoryManageService historyManageService;
 
     private String getUUID(String param) {
         return UUID.nameUUIDFromBytes(param.getBytes(StandardCharsets.UTF_8)).toString();
@@ -134,7 +140,6 @@ public class ReviewPointTest {
         Assertions.assertEquals(3, userInfoDTO.getPoint());
     }
 
-    /*
     @Test
     @Order(7)
     @DisplayName("리뷰 포인트 적립 히스토리 테스트")
@@ -142,10 +147,9 @@ public class ReviewPointTest {
         String userUid = getUUID("userID1");
         SearchParam searchParam = SearchParam.builder().searchKeyword("userId", userUid).build();
 
-        List<MileageHistoryDTO> list= mileageHistoryManageService.search(searchParam);
+        List<MileageHistoryDTO> list= historyManageService.search(searchParam);
 
         Assertions.assertEquals(3, list.size());
     }
 
-     */
 }

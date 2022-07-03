@@ -1,5 +1,6 @@
 package guide.triple.mileage.web.controller;
 
+import guide.triple.mileage.common.dto.SearchParam;
 import guide.triple.mileage.web.dto.ResponseDTO;
 import guide.triple.mileage.web.dto.EventsRequestDTO;
 import guide.triple.mileage.web.service.MileagePointService;
@@ -51,4 +52,17 @@ public class MileageApiController {
         return ResponseEntity.ok(responseDTO);
     }
 
+    @Operation(summary = "사용자 Club Mileage 적립 이력 조회 API")
+    @GetMapping(value = "/history/{userId}/{pagePerSize}/{page}")
+    public ResponseEntity<ResponseDTO> history(@PathVariable String userId, @PathVariable(required = false) int pagePerSize, @PathVariable(required = false) int page) {
+        SearchParam searchParam = SearchParam.builder()
+                .searchKeyword("userId", userId)
+                .pagePerSize(pagePerSize)
+                .page(page)
+                .build();
+
+        ResponseDTO responseDTO = mileageUserInfoService.getHistory(searchParam);
+
+        return ResponseEntity.ok(responseDTO);
+    }
 }
