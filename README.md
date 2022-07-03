@@ -28,6 +28,7 @@ Triple Backend 사전과제 제출물 입니다.
       (local or prod 권장, prod 시 swagger 사용 불가)
 
     - spring.datasource.hikari.jdbc-url, username, password 수정
+    - mileage-service/schema/001.schema_ddl.sql DB 반영
     - application 구동
 
 ---
@@ -78,5 +79,6 @@ Triple Backend 사전과제 제출물 입니다.
 
 
 ## ERD
+DB Schema 위치 : mileage-service/schema/001.schema_ddl.sql
 ![image3](https://user-images.githubusercontent.com/29092884/177048347-8a319779-b5a7-4609-817b-734891955681.png)
 
