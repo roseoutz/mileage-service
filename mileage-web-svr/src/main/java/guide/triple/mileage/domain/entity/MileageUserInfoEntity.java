@@ -2,10 +2,7 @@ package guide.triple.mileage.domain.entity;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 /**
@@ -24,13 +21,22 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "triple_mileage_user_info")
+@Table(
+        name = "triple_mileage_user_info",
+        indexes = {
+                @Index(
+                        name = "idx_user_pk",
+                        columnList = "user_id"
+                )
+        }
+)
 public class MileageUserInfoEntity {
 
     @Id
     @Column(name = "user_id", length = 36)
     private String userId;
 
+    @Column(name = "point")
     private long point = 0;
 
 

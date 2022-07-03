@@ -6,7 +6,10 @@ public enum ErrorCode implements IErrorCode{
     COMMON_ERROR("common.error"),
     ERROR_REQUEST_ACTION_NOT_FOUND("error.request.action.not.found"),
     ERROR_REGISTERED_REVIEW_EXIST("error.registered.review.exist"),
-    ERROR_REVIEW_NOT_EXIST("error.review.not.exist")
+    ERROR_REVIEW_NOT_EXIST("error.review.not.exist"),
+    ERROR_NOT_EXIST_USER("error.not.exist.user"),
+
+    Error_REQUEST_PARAMETER_INVALID("error.request.parameter.invalid")
     ;
 
     ErrorCode(String msgCode) { this.msgCode = msgCode; }

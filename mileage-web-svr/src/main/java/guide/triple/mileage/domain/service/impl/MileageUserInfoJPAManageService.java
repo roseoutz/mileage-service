@@ -1,5 +1,7 @@
 package guide.triple.mileage.domain.service.impl;
 
+import guide.triple.mileage.common.constant.ErrorCode;
+import guide.triple.mileage.common.exception.MileageException;
 import guide.triple.mileage.domain.dto.MileageUserInfoDTO;
 import guide.triple.mileage.domain.entity.MileageUserInfoEntity;
 import guide.triple.mileage.domain.repository.MileageUserInfoRepository;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.function.Supplier;
 
 
 /**
@@ -33,7 +36,7 @@ public class MileageUserInfoJPAManageService implements MileageUserInfoManageSer
     public MileageUserInfoDTO get(String userId) {
         Optional<MileageUserInfoEntity> optionalMileageUserInfoEntity = userInfoRepository.findById(userId);
 
-        return optionalMileageUserInfoEntity.map(this::toDTO).orElse(null);
+        return optionalMileageUserInfoEntity.map(this::toDTO).orElseThrow(() -> new MileageException(ErrorCode.ERROR_NOT_EXIST_USER));
 
     }
 
@@ -54,9 +57,7 @@ public class MileageUserInfoJPAManageService implements MileageUserInfoManageSer
                         }
 
                         userInfoEntity.setPoint(value);
-                    }, () -> {
-                        userInfoRepository.save(new MileageUserInfoEntity(userId, point));
-                    });
+                    }, () -> userInfoRepository.save(new MileageUserInfoEntity(userId, point)));
     }
 
     private MileageUserInfoDTO toDTO(MileageUserInfoEntity userInfoEntity) {

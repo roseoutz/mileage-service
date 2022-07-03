@@ -1,5 +1,8 @@
 package guide.triple.mileage.web.service.impl;
 
+import guide.triple.mileage.common.constant.ErrorCode;
+import guide.triple.mileage.common.exception.MileageException;
+import guide.triple.mileage.common.util.StringCheckUtil;
 import guide.triple.mileage.domain.dto.MileageUserInfoDTO;
 import guide.triple.mileage.domain.service.MileageUserInfoManageService;
 import guide.triple.mileage.web.dto.ResponseDTO;
@@ -15,6 +18,11 @@ public class DefaultMileageUserInfoInfoService implements MileageUserInfoService
 
     @Override
     public ResponseDTO get(String userId) {
+
+        if (!StringCheckUtil.isNonNull(userId)) {
+            throw new MileageException(ErrorCode.Error_REQUEST_PARAMETER_INVALID);
+        }
+
         MileageUserInfoDTO userInfoDTO = userInfoService.get(userId);
         return ResponseDTO
                 .builder()

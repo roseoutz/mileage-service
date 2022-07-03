@@ -1,6 +1,9 @@
 package guide.triple.mileage.domain.service;
 
+import guide.triple.mileage.common.dto.SearchParam;
 import guide.triple.mileage.domain.dto.MileageHistoryDTO;
+
+import java.util.List;
 
 /**
  * packageName    : guide.triple.mileage.service
@@ -16,5 +19,7 @@ import guide.triple.mileage.domain.dto.MileageHistoryDTO;
 public interface MileageHistoryManageService {
 
     void add(MileageHistoryDTO historyDTO);
+
+    List<MileageHistoryDTO> search(SearchParam searchParam);
 
 }

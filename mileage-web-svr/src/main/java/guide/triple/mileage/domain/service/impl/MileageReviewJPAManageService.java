@@ -1,18 +1,25 @@
 package guide.triple.mileage.domain.service.impl;
 
+import guide.triple.mileage.common.constant.ActionType;
 import guide.triple.mileage.common.constant.ErrorCode;
 import guide.triple.mileage.common.exception.MileageException;
+import guide.triple.mileage.common.util.StringCheckUtil;
+import guide.triple.mileage.domain.dto.MileageConfigDTO;
 import guide.triple.mileage.domain.dto.MileageReviewDTO;
 import guide.triple.mileage.domain.entity.MileageReviewEntity;
 import guide.triple.mileage.domain.entity.composite.MileageId;
 import guide.triple.mileage.domain.repository.MileageReviewRepository;
+import guide.triple.mileage.domain.service.MileageConfigManageService;
 import guide.triple.mileage.domain.service.MileageReviewManageService;
 import guide.triple.mileage.domain.service.MileageUserInfoManageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * packageName    : guide.triple.mileage.service.impl
@@ -32,6 +39,29 @@ public class MileageReviewJPAManageService implements MileageReviewManageService
     private final MileageReviewRepository mileageReviewRepository;
 
     private final MileageUserInfoManageService userInfoService;
+
+    private final MileageConfigManageService configManageService;
+
+    private final Map<String, Integer> pointCacheMap = new ConcurrentHashMap<>();
+
+    private long cacheLoadTime = 0;
+
+    private int getPoint(String key) {
+
+        if (pointCacheMap.isEmpty() || System.currentTimeMillis() > cacheLoadTime + (60 * 5 * 1000)) {
+            List<MileageConfigDTO> configDTOS = configManageService.getAll("review.point");
+            configDTOS.forEach(dto -> pointCacheMap.put(dto.getKey(), Integer.parseInt(dto.getValue())));
+            cacheLoadTime = System.currentTimeMillis();
+        }
+
+        if (!pointCacheMap.isEmpty() && pointCacheMap.containsKey("review.point."+ key)) {
+            return pointCacheMap.get("review.point."+ key);
+        }
+
+        return 1;
+    }
+
+
 
     @Transactional
     @Override
@@ -55,9 +85,9 @@ public class MileageReviewJPAManageService implements MileageReviewManageService
 
         updatePoint(
                 dto.getUserId(),
-                dto.isHasText() ? 1 : 0,
-                dto.isHasImage() ? 1 : 0,
-                dto.isHasBonus() ? 1 : 0
+                dto.isHasText() ? getPoint("text") : 0,
+                dto.isHasImage() ? getPoint("image") : 0,
+                dto.isHasBonus() ? getPoint("bonus") : 0
         );
 
         return toDTO(savedEntity);
@@ -73,13 +103,12 @@ public class MileageReviewJPAManageService implements MileageReviewManageService
 
             updatePoint(
                     mileageReviewDTO.getUserId(),
-                    getPoint(entity.isHasText(), mileageReviewDTO.isHasText()),
-                    getPoint(entity.isHasImage(), mileageReviewDTO.isHasImage()),
+                    checkPositive(entity.isHasText(), mileageReviewDTO.isHasText()) * getPoint("text"),
+                    checkPositive(entity.isHasImage(), mileageReviewDTO.isHasImage()) * getPoint("image"),
                     0
 
             );
 
-            entity.setHasBonus(mileageReviewDTO.isHasBonus());
             entity.setHasImage(mileageReviewDTO.isHasImage());
             entity.setHasText(mileageReviewDTO.isHasText());
 
@@ -101,9 +130,9 @@ public class MileageReviewJPAManageService implements MileageReviewManageService
 
             updatePoint(
                     mileageReviewDTO.getUserId(),
-                    entity.isHasText() ? -1 : 0,
-                    entity.isHasImage() ? -1 : 0,
-                    entity.isHasBonus() ? -1 : 0
+                    entity.isHasText() ? -1 * getPoint("text") : 0,
+                    entity.isHasImage() ? -1 * getPoint("image") : 0,
+                    entity.isHasBonus() ? -1 * getPoint("bonus") : 0
 
             );
         }
@@ -113,7 +142,7 @@ public class MileageReviewJPAManageService implements MileageReviewManageService
         mileageReviewRepository.findFirstByPlaceIdOrderByInsertTimeAsc(mileageReviewDTO.getPlaceId())
                 .ifPresent(e -> {
                     e.setHasBonus(true);
-                    updatePoint(e.getUserId(), 0, 0, 1);
+                    updatePoint(e.getUserId(), 0, 0, getPoint("bonus"));
                 });
     }
 
@@ -121,9 +150,9 @@ public class MileageReviewJPAManageService implements MileageReviewManageService
         return !mileageReviewRepository.existsByPlaceId(placeId);
     }
 
-    private long getPoint(boolean oldValue, boolean newValue) {
+    private long checkPositive(boolean oldValue, boolean newValue) {
         if (oldValue && !newValue) {
-            return -1;
+            return -1 * getPoint("text");
         }
 
         if (oldValue == newValue) {
@@ -137,8 +166,8 @@ public class MileageReviewJPAManageService implements MileageReviewManageService
         return 0;
     }
 
-    private void updatePoint(String userId, long text, long image, long bouns) {
-        userInfoService.update(userId, text + image + bouns);
+    private void updatePoint(String userId, long text, long image, long bonus) {
+        userInfoService.update(userId, text + image + bonus);
     }
 
     private MileageReviewEntity toEntity(MileageReviewDTO dto) {

@@ -33,17 +33,17 @@ public class MileageHistoryEntity {
     @Column(name = "oid", length = 36)
     private String oid;
 
-    @Column(name = "user_id", length = 36)
+    @Column(name = "user_id", length = 36, nullable = false)
     private String userId;
 
-    @Column(name = "place_id", length = 36)
+    @Column(name = "place_id", length = 36, nullable = false)
     private String placeId;
 
-    @Column(name = "review_id", length = 36)
+    @Column(name = "review_id", length = 36, nullable = false)
     private String reviewId;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "action_type", length = 10)
+    @Column(name = "action_type", length = 10, nullable = false)
     private ActionType actionType;
 
     @Convert(converter= BooleanToStringConverter.class)

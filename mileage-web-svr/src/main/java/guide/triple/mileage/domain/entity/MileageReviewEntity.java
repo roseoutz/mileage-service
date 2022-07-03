@@ -27,10 +27,14 @@ import java.util.UUID;
 @Table(
         name = "triple_mileage_review",
         indexes = {
-            @Index(
-                    name = "idx_review_place_id",
-                    columnList = "place_id"
-            )
+                @Index(
+                        name = "idx_review_place_id",
+                        columnList = "place_id"
+                ),
+                @Index(
+                        name = "idx_review_pk",
+                        columnList = "place_id, user_id"
+                )
         }
 )
 public class MileageReviewEntity {

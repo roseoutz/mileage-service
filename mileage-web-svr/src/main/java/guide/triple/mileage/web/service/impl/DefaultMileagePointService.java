@@ -1,6 +1,9 @@
 package guide.triple.mileage.web.service.impl;
 
 import guide.triple.mileage.common.constant.ActionType;
+import guide.triple.mileage.common.constant.ErrorCode;
+import guide.triple.mileage.common.exception.MileageException;
+import guide.triple.mileage.common.util.StringCheckUtil;
 import guide.triple.mileage.domain.dto.MileageHistoryDTO;
 import guide.triple.mileage.domain.dto.MileageReviewDTO;
 import guide.triple.mileage.domain.service.MileageHistoryManageService;
@@ -25,6 +28,14 @@ public class DefaultMileagePointService implements MileagePointService {
     public ResponseDTO event(EventsRequestDTO eventsRequestDTO) {
         MileageReviewDTO reviewDTO;
 
+        if (
+                !StringCheckUtil.isNonNull(eventsRequestDTO.getUserId())
+                || !StringCheckUtil.isNonNull(eventsRequestDTO.getPlaceId())
+                || !StringCheckUtil.isNonNull(eventsRequestDTO.getReviewId())
+        ) {
+            throw new MileageException(ErrorCode.Error_REQUEST_PARAMETER_INVALID);
+        }
+
         switch (eventsRequestDTO.getAction()) {
             case ADD:
                 reviewDTO = addReview(eventsRequestDTO);
@@ -36,7 +47,7 @@ public class DefaultMileagePointService implements MileagePointService {
                 reviewDTO = deleteReview(eventsRequestDTO);
                 break;
             default:
-                throw new IllegalStateException("");
+                throw new MileageException(ErrorCode.ERROR_REQUEST_ACTION_NOT_FOUND);
         }
 
         addHistory(reviewDTO, eventsRequestDTO.getAction());

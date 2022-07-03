@@ -1,9 +1,10 @@
-package guide.triple.mileage.unit;
+package guide.triple.mileage.manage;
 
 import guide.triple.mileage.common.constant.ErrorCode;
 import guide.triple.mileage.common.exception.MileageException;
 import guide.triple.mileage.domain.dto.MileageReviewDTO;
 import guide.triple.mileage.domain.dto.MileageUserInfoDTO;
+import guide.triple.mileage.domain.service.MileageHistoryManageService;
 import guide.triple.mileage.domain.service.MileageReviewManageService;
 import guide.triple.mileage.domain.service.MileageUserInfoManageService;
 import org.junit.jupiter.api.*;
@@ -132,4 +133,19 @@ public class ReviewPointTest {
 
         Assertions.assertEquals(3, userInfoDTO.getPoint());
     }
+
+    /*
+    @Test
+    @Order(7)
+    @DisplayName("리뷰 포인트 적립 히스토리 테스트")
+    void review_history_test(){
+        String userUid = getUUID("userID1");
+        SearchParam searchParam = SearchParam.builder().searchKeyword("userId", userUid).build();
+
+        List<MileageHistoryDTO> list= mileageHistoryManageService.search(searchParam);
+
+        Assertions.assertEquals(3, list.size());
+    }
+
+     */
 }

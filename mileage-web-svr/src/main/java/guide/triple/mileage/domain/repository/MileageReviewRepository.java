@@ -22,8 +22,6 @@ import java.util.Optional;
 @Repository
 public interface MileageReviewRepository extends JpaRepository<MileageReviewEntity, MileageId> {
 
-    List<MileageReviewEntity> findByPlaceId(String placeId);
-
     boolean existsByPlaceId(String placeId);
 
     Optional<MileageReviewEntity> findFirstByPlaceIdOrderByInsertTimeAsc(String placeId);

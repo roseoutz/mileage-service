@@ -34,7 +34,7 @@ public class MileageApiController {
     @PostMapping(value = "/events")
     public ResponseEntity<ResponseDTO> events(@RequestBody EventsRequestDTO requestDTO) {
 
-        log.info("[Event Log] request : {}", requestDTO.toString());
+        log.info("[Event Log] review event request : {}", requestDTO.toString());
 
         ResponseDTO responseDTO = mileagePointService.event(requestDTO);
 
@@ -44,6 +44,9 @@ public class MileageApiController {
     @Operation(summary = "사용자 Clue Mileage 조회 API")
     @GetMapping(value = "/get/{userId}")
     public ResponseEntity<ResponseDTO> get(@PathVariable String userId) {
+
+        log.info("[Event Log] get user request : {}", userId);
+
         ResponseDTO responseDTO = mileageUserInfoService.get(userId);
         return ResponseEntity.ok(responseDTO);
     }

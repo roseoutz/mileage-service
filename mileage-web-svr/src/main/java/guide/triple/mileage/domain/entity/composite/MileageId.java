@@ -1,9 +1,6 @@
 package guide.triple.mileage.domain.entity.composite;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -18,6 +15,7 @@ import java.io.Serializable;
  * -----------------------------------------------------------
  * 2022/06/30        kimdonggyuuuuu       최초 생성
  */
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

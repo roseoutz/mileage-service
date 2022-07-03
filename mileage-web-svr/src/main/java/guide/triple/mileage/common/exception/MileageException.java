@@ -2,6 +2,7 @@ package guide.triple.mileage.common.exception;
 
 import guide.triple.mileage.common.constant.ErrorCode;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import java.util.Map;
  * -----------------------------------------------------------
  * 2022/07/01        kimdonggyuuuuu       최초 생성
  */
+@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 public class MileageException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
