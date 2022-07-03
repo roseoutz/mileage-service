@@ -1,0 +1,22 @@
+server:
+  port: 9401
+  servlet:
+    application-display-name: Mileage Data Proxy Server
+
+spring:
+  application:
+    name: MILEAGE_DATA_PROXY_SERVER
+  profiles:
+    active: test
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://127.0.0.1:12000/eureka/
+  instance:
+    hostname: authService
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 30
+    lease-expiration-duration-in-seconds: 90
