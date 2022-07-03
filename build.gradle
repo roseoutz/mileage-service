@@ -18,8 +18,8 @@ buildscript {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
         classpath "io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE"
     }
-}
 
+}
 
 allprojects {
 
@@ -82,8 +82,6 @@ subprojects {
 
         annotationProcessor "javax.annotation:javax.annotation-api:${javaxAnnotationApi}"
         annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
-
-
         // Use JUnit Jupiter for testing.
         testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
 

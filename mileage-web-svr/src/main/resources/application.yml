@@ -2,24 +2,28 @@ server:
   port: 9201
   servlet:
     application-display-name: Mileage Service
-    session:
-      timeout: 7200
-      cookie:
-        name: JSESSIONID
-  error:
-    whitelabel:
-      enabled: false
-
 
 spring:
   application:
-    name: MILEAGE
+    name: MILEAGE_COMMAND_SERVER
   profiles:
     active: test
   messages:
     basename: classpath:messages/message-error
     encoding: UTF-8
     cache-duration: 10
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://127.0.0.1:12000/eureka/
+  instance:
+    hostname: mileageCommandServer
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 30
+    lease-expiration-duration-in-seconds: 90
 
 springdoc:
   api-docs:

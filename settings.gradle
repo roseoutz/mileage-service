@@ -1,3 +1,7 @@
 rootProject.name = 'mileage-service'
 
 include 'mileage-web-svr'
+include 'mileage-query-web-svr'
+include 'mileage-gateway'
+include 'mileage-eureka'
+include 'mileage-data-proxy-svr'
