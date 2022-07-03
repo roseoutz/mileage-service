@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  triple.mileage.ms.svr:
+    image: roseoutz/triple-mileage-ms-svr:1.0.0
+    container_name: mileage.ms.svr
+    restart: always
+    depends_on:
+      - mysql
+    ports:
+      - "9201:9201"
+  mysql:
+    image: mysql:8.0.29
+    container_name: "mariadb"
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db/conf.d:/etc/mysql/conf.d
+      - ./db/initdb.d:/docker-entrypoint-initdb.d
+    env_file: db/env/db.env
+    environment:
+      - TZ="Asia/Seoul"
+

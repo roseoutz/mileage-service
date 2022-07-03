@@ -1,12 +1,14 @@
 server:
-  port: 9201 #java -jar spring-5.jar --server.port=8083
+  port: 9201
   servlet:
     application-display-name: Mileage Service
-    #    context-path: /sso
     session:
       timeout: 7200
       cookie:
         name: JSESSIONID
+  error:
+    whitelabel:
+      enabled: false
 
 
 spring:
@@ -14,27 +16,29 @@ spring:
     name: MILEAGE
   profiles:
     active: test
-#  messages:
-#    basename: messages/message, messages/message-error, messages/message-test
-#    encoding: UTF-8
+  messages:
+    basename: classpath:messages/message-error
+    encoding: UTF-8
+    cache-duration: 10
 
+springdoc:
+  api-docs:
+    enabled: true
+    path: /api/docs
+  swagger-ui:
+    path: swagger.html
 
 logging:
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
   charset:
     console: UTF-8
   level:
-    root: info
-    log4jdbc.log4j2: DEBUG
-    com.zaxxer.hikari.HikariConfig: DEBUG
-    com.zaxxer.hikari: TRACE
-
-jasypt:
-  encryptor:
-    bean: jasyptStringEncryptor
-    poolSize: 1
-    property:
-      prefix: ENC(
-      suffix: )
+    root: debug
+    log4jdbc.log4j2: debug
+    com.zaxxer.hikari.HikariConfig: debug
+    com.zaxxer.hikari: debug
+    guide.triple: debug
 
 ---
 spring:
@@ -43,8 +47,8 @@ spring:
       on-profile: test
   datasource:
     hikari:
-      jdbc-url: jdbc:log4jdbc:h2:mem:mileage;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-      driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+      jdbc-url: jdbc:h2:mem:mileage;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+      driver-class-name: org.h2.Driver
       username: sa
       password:
       pool-name: hikari-db-pool
@@ -57,31 +61,68 @@ spring:
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
     show-sql: true
+    open-in-view: false
+    defer-datasource-initialization: true
   h2:
     console:
       enabled: true
       path: /h2
+  sql:
+    init:
+      data-locations: classpath:sql/insert.sql
 
 ---
 spring:
   config:
     activate:
-      on-profile: prod
+      on-profile: local
   datasource:
-    platform: mysql
     hikari:
       poolName: hikari-default-
-      driver-class-name: org.mariadb.jdbc.Driver
-      jdbc-url: jdbc:mariadb://192.168.11.8:3306/bandi?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
-      username: ENC(459cd884243381acaf6e7e94d650de35)
-      password: ENC(03d5879466de10561a9182eba53cd88c)
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://127.0.0.1:3306/triple?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8
+      username: test
+      password: test123
       maximumPoolSize: 50
       connectionTimeout: 10000
       validationTimeout: 5000
       autoCommit: true
   jpa:
     database: mysql
-    database-platform: org.hibernate.dialect.MariaDB103Dialect
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+    properties:
+      hibernate:
+        session:
+          events:
+            log:
+              LOG_QUERIES_SLOWER_THAN_MS: 500
+        show-sql: true
+        format_sql: true
+    open-in-view: false
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    hikari:
+      poolName: hikari-default-
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://127.0.0.1:3306/triple?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8
+      username: test
+      password: test123
+      maximumPoolSize: 50
+      connectionTimeout: 10000
+      validationTimeout: 5000
+      autoCommit: true
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
       ddl-auto: validate
       naming:
@@ -89,13 +130,44 @@ spring:
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
     properties:
       hibernate:
-        hql:
-          bulk_id_strategy: org.hibernate.hql.spi.id.inline.InlineIdsInClauseBulkIdStrategy
-        jdbc:
-          batch_size: 20
         session:
           events:
             log:
               LOG_QUERIES_SLOWER_THAN_MS: 500
         show-sql: true
         format_sql: true
+    open-in-view: false
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+  datasource:
+    hikari:
+      poolName: hikari-default-
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://mysql:3306/triple?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8
+      username: test
+      password: test123
+      maximumPoolSize: 50
+      connectionTimeout: 10000
+      validationTimeout: 5000
+      autoCommit: true
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: validate
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+    properties:
+      hibernate:
+        session:
+          events:
+            log:
+              LOG_QUERIES_SLOWER_THAN_MS: 500
+        show-sql: true
+        format_sql: true
+    open-in-view: false
