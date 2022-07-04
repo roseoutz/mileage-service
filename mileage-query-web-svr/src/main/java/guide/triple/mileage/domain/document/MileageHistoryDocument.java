@@ -29,11 +29,13 @@ public class MileageHistoryDocument {
 
     private ActionType actionType;
 
-    private boolean hasText = false;
+    private long textPoint = 0;
 
-    private boolean hasImage = false;
+    private long imagePoint = 0;
 
-    private boolean hasBonus = false;
+    private long bonusPoint = 0;
+
+    private long earnedPoint = 0;
 
     protected long insertTime = System.currentTimeMillis();
 

@@ -1,7 +1,6 @@
 package guide.triple.mileage.domain.entity;
 
 import guide.triple.mileage.common.constant.ActionType;
-import guide.triple.mileage.common.converter.BooleanToStringConverter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -54,17 +53,17 @@ public class MileageHistoryEntity {
     @Column(name = "action_type", length = 10, nullable = false)
     private ActionType actionType;
 
-    @Convert(converter= BooleanToStringConverter.class)
-    @Column(name = "has_text", length = 1)
-    private boolean hasText = false;
+    @Column(name = "text_point")
+    private long textPoint = 0;
 
-    @Convert(converter=BooleanToStringConverter.class)
-    @Column(name = "has_image", length = 1)
-    private boolean hasImage = false;
+    @Column(name = "image_point")
+    private long imagePoint = 0;
 
-    @Convert(converter=BooleanToStringConverter.class)
-    @Column(name = "has_bonus", length = 1)
-    private boolean hasBonus = false;
+    @Column(name = "bonus_point")
+    private long bonusPoint = 0;
+
+    @Column(name = "earned_point")
+    private long earnedPoint = 0;
 
     @Column(name="insert_time")
     protected long insertTime = System.currentTimeMillis();

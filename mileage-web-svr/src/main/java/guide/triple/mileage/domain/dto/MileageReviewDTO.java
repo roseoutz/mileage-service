@@ -27,11 +27,20 @@ public class MileageReviewDTO {
     private String reviewId;
 
     @Builder.Default
-    private boolean hasText = false;
+    private boolean text = false;
 
     @Builder.Default
-    private boolean hasImage = false;
+    private long textPoint = 0;
 
     @Builder.Default
-    private boolean hasBonus = false;
+    private boolean image = false;
+
+    @Builder.Default
+    private long imagePoint = 0;
+
+    @Builder.Default
+    private boolean bonus = false;
+
+    @Builder.Default
+    private long bonusPoint = 0;
 }

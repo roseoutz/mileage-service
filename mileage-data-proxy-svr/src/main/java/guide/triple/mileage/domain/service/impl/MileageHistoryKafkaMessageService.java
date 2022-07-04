@@ -40,9 +40,10 @@ public class MileageHistoryKafkaMessageService implements MileageHistoryMessageS
         document.setPlaceId(mileageUserInfoR2Entity.getPlaceId());
         document.setReviewId(mileageUserInfoR2Entity.getReviewId());
         document.setActionType(mileageUserInfoR2Entity.getActionType());
-        document.setHasText("Y".equalsIgnoreCase(mileageUserInfoR2Entity.getHasText()));
-        document.setHasImage("Y".equalsIgnoreCase(mileageUserInfoR2Entity.getHasImage()));
-        document.setHasBonus("Y".equalsIgnoreCase(mileageUserInfoR2Entity.getHasBonus()));
+        document.setTextPoint(mileageUserInfoR2Entity.getTextPoint());
+        document.setImagePoint(mileageUserInfoR2Entity.getImagePoint());
+        document.setBonusPoint(mileageUserInfoR2Entity.getBonusPoint());
+        document.setEarnedPoint(mileageUserInfoR2Entity.getEarnedPoint());
         document.setInsertTime(mileageUserInfoR2Entity.getInsertTime());
         document.setUpdateTime(mileageUserInfoR2Entity.getUpdateTime());
 

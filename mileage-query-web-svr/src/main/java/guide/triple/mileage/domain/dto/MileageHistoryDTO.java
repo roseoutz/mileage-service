@@ -30,13 +30,16 @@ public class MileageHistoryDTO {
     private ActionType actionType;
 
     @Builder.Default
-    private boolean hasText = false;
+    private long textPoint = 0;
 
     @Builder.Default
-    private boolean hasImage = false;
+    private long imagePoint = 0;
 
     @Builder.Default
-    private boolean hasBonus = false;
+    private long bonusPoint = 0;
+
+    @Builder.Default
+    private long earnedPoint = 0;
 
     @Builder.Default
     private long insertTime = System.currentTimeMillis();

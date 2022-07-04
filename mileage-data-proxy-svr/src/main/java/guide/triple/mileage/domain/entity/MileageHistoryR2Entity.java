@@ -29,14 +29,17 @@ public class MileageHistoryR2Entity implements Persistable<String> {
     @Column(value = "action_type")
     private String actionType;
 
-    @Column(value = "has_text")
-    private String hasText;
+    @Column(value = "text_point")
+    private long textPoint = 0;
 
-    @Column(value = "has_image")
-    private String hasImage;
+    @Column(value = "image_point")
+    private long imagePoint = 0;
 
-    @Column(value = "has_bonus")
-    private String hasBonus;
+    @Column(value = "bonus_point")
+    private long bonusPoint = 0;
+
+    @Column(value = "earned_point")
+    private long earnedPoint = 0;
 
     @Column(value="insert_time")
     protected long insertTime = System.currentTimeMillis();

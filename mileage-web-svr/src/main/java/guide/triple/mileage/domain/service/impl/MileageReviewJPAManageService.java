@@ -70,30 +70,30 @@ public class MileageReviewJPAManageService implements MileageReviewManageService
     @Override
     public MileageReviewDTO add(MileageReviewDTO mileageReviewDTO) {
 
-        MileageReviewDTO.MileageReviewDTOBuilder builder = mileageReviewDTO.toBuilder();
-
         boolean isExistReview = mileageReviewRepository.existsById(new MileageId(mileageReviewDTO.getUserId(), mileageReviewDTO.getPlaceId()));
 
         if (isExistReview) {
             throw new MileageException(ErrorCode.ERROR_REGISTERED_REVIEW_EXIST);
         }
 
+        MileageReviewEntity entity = toEntity(mileageReviewDTO);
+
         if (isFirstReview(mileageReviewDTO.getPlaceId())) {
-            builder.hasBonus(true);
+            entity.setBonus(true);
         }
 
-        MileageReviewDTO dto = builder.build();
 
-        MileageReviewEntity savedEntity = mileageReviewRepository.saveAndFlush(toEntity(dto));
+        MileageReviewEntity savedEntity = mileageReviewRepository.saveAndFlush(entity);
 
-        updatePoint(
-                dto.getUserId(),
-                dto.isHasText() ? getPoint("text") : 0,
-                dto.isHasImage() ? getPoint("image") : 0,
-                dto.isHasBonus() ? getPoint("bonus") : 0
-        );
+        MileageReviewDTO dto = toDTO(savedEntity,
+                entity.isText() ? getPoint("text") : 0,
+                entity.isImage() ? getPoint("image") : 0,
+                entity.isBonus() ? getPoint("bonus") : 0
+                );
 
-        return toDTO(savedEntity);
+        updatePoint(dto);
+
+        return dto;
     }
 
     @Transactional
@@ -104,19 +104,19 @@ public class MileageReviewJPAManageService implements MileageReviewManageService
         if (optionalMileageReviewEntity.isPresent()) {
             MileageReviewEntity entity = optionalMileageReviewEntity.get();
 
-            updatePoint(
-                    mileageReviewDTO.getUserId(),
-                    checkPositive(entity.isHasText(), mileageReviewDTO.isHasText()) * getPoint("text"),
-                    checkPositive(entity.isHasImage(), mileageReviewDTO.isHasImage()) * getPoint("image"),
-                    0
 
+            MileageReviewDTO dto = toDTO(entity,
+                    checkPositive(entity.isText(), mileageReviewDTO.isText()) * getPoint("text"),
+                    checkPositive(entity.isImage(), mileageReviewDTO.isImage()) * getPoint("image"),
+                    0
             );
 
-            entity.setHasImage(mileageReviewDTO.isHasImage());
-            entity.setHasText(mileageReviewDTO.isHasText());
+            entity.setImage(mileageReviewDTO.isImage());
+            entity.setText(mileageReviewDTO.isText());
 
+            updatePoint(dto);
 
-            return toDTO(entity);
+            return dto;
         }
 
         throw new MileageException(ErrorCode.ERROR_REVIEW_NOT_EXIST);
@@ -124,29 +124,33 @@ public class MileageReviewJPAManageService implements MileageReviewManageService
 
     @Transactional
     @Override
-    public void delete(MileageReviewDTO mileageReviewDTO) {
+    public MileageReviewDTO delete(MileageReviewDTO mileageReviewDTO) {
         MileageId id = new MileageId(mileageReviewDTO.getUserId(), mileageReviewDTO.getPlaceId());
         Optional<MileageReviewEntity> optionalMileageReviewEntity = mileageReviewRepository.findById(id);
 
         if (optionalMileageReviewEntity.isPresent()) {
             MileageReviewEntity entity = optionalMileageReviewEntity.get();
 
-            updatePoint(
-                    mileageReviewDTO.getUserId(),
-                    entity.isHasText() ? -1 * getPoint("text") : 0,
-                    entity.isHasImage() ? -1 * getPoint("image") : 0,
-                    entity.isHasBonus() ? -1 * getPoint("bonus") : 0
+            MileageReviewDTO dto = toDTO(entity,
+                    entity.isText() ? -1 * getPoint("text") : 0,
+                    entity.isImage() ? -1 * getPoint("image") : 0,
+                    entity.isBonus() ? -1 * getPoint("bonus") : 0
 
             );
+            updatePoint(dto);
+
+            mileageReviewRepository.deleteById(id);
+
+            mileageReviewRepository.findFirstByPlaceIdOrderByInsertTimeAsc(mileageReviewDTO.getPlaceId())
+                    .ifPresent(e -> {
+                        e.setBonus(true);
+                        MileageReviewDTO secondReviewDTO = toDTO(entity, 0, 0, getPoint("bonus"));
+                        updatePoint(secondReviewDTO);
+                    });
+            return dto;
         }
 
-        mileageReviewRepository.deleteById(id);
-
-        mileageReviewRepository.findFirstByPlaceIdOrderByInsertTimeAsc(mileageReviewDTO.getPlaceId())
-                .ifPresent(e -> {
-                    e.setHasBonus(true);
-                    updatePoint(e.getUserId(), 0, 0, getPoint("bonus"));
-                });
+        throw new MileageException(ErrorCode.ERROR_REVIEW_NOT_EXIST);
     }
 
     private boolean isFirstReview(String placeId) {
@@ -169,9 +173,10 @@ public class MileageReviewJPAManageService implements MileageReviewManageService
         return 0;
     }
 
-    private void updatePoint(String userId, long text, long image, long bonus) {
-        userInfoService.update(userId, text + image + bonus);
-        syncUserRequest(userId);
+    private void updatePoint(MileageReviewDTO mileageReviewDTO) {
+        long point = mileageReviewDTO.getBonusPoint() + mileageReviewDTO.getImagePoint() + mileageReviewDTO.getTextPoint();
+        userInfoService.update(mileageReviewDTO.getUserId(), point);
+        syncUserRequest(mileageReviewDTO.getUserId());
     }
 
     private void syncUserRequest(String userId) {
@@ -183,9 +188,9 @@ public class MileageReviewJPAManageService implements MileageReviewManageService
         entity.setUserId(dto.getUserId());
         entity.setPlaceId(dto.getPlaceId());
         entity.setReviewId(dto.getReviewId());
-        entity.setHasBonus(dto.isHasBonus());
-        entity.setHasImage(dto.isHasImage());
-        entity.setHasText(dto.isHasText());
+        entity.setBonus(dto.isBonus());
+        entity.setImage(dto.isImage());
+        entity.setText(dto.isText());
 
         return entity;
     }
@@ -196,9 +201,17 @@ public class MileageReviewJPAManageService implements MileageReviewManageService
                 .userId(entity.getUserId())
                 .placeId(entity.getPlaceId())
                 .reviewId(entity.getReviewId())
-                .hasBonus(entity.isHasBonus())
-                .hasImage(entity.isHasImage())
-                .hasText(entity.isHasText())
+                .bonus(entity.isBonus())
+                .image(entity.isImage())
+                .text(entity.isText())
+                .build();
+    }
+
+    private MileageReviewDTO toDTO(MileageReviewEntity entity, long text, long image, long bonus) {
+        return toDTO(entity).toBuilder()
+                .bonusPoint(bonus)
+                .imagePoint(image)
+                .textPoint(text)
                 .build();
     }
 }

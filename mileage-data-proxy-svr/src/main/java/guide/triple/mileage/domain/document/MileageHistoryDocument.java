@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.relational.core.mapping.Column;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,11 +25,13 @@ public class MileageHistoryDocument {
 
     private String actionType;
 
-    private boolean hasText = false;
+    private long textPoint = 0;
 
-    private boolean hasImage = false;
+    private long imagePoint = 0;
 
-    private boolean hasBonus = false;
+    private long bonusPoint = 0;
+
+    private long earnedPoint = 0;
 
     protected long insertTime = System.currentTimeMillis();
 

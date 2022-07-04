@@ -51,16 +51,16 @@ public class MileageReviewEntity {
     private String reviewId;
 
     @Convert(converter= BooleanToStringConverter.class)
-    @Column(name = "has_text", length = 1)
-    private boolean hasText = false;
+    @Column(name = "text", length = 1)
+    private boolean text = false;
 
     @Convert(converter=BooleanToStringConverter.class)
-    @Column(name = "has_image", length = 1)
-    private boolean hasImage = false;
+    @Column(name = "image", length = 1)
+    private boolean image = false;
 
     @Convert(converter=BooleanToStringConverter.class)
-    @Column(name = "has_bonus", length = 1)
-    private boolean hasBonus = false;
+    @Column(name = "bonus", length = 1)
+    private boolean bonus = false;
 
     @Column(name="insert_time")
     protected long insertTime = System.currentTimeMillis();

@@ -33,9 +33,10 @@ public class MileageHistoryMongoManageService implements MileageHistoryManageSer
                 .reviewId(document.getReviewId())
                 .placeId(document.getPlaceId())
                 .actionType(document.getActionType())
-                .hasText(document.isHasText())
-                .hasImage(document.isHasImage())
-                .hasBonus(document.isHasBonus())
+                .textPoint(document.getTextPoint())
+                .imagePoint(document.getImagePoint())
+                .bonusPoint(document.getBonusPoint())
+                .earnedPoint(document.getEarnedPoint())
                 .insertTime(document.getInsertTime())
                 .updateTime(document.getUpdateTime())
                 .build();

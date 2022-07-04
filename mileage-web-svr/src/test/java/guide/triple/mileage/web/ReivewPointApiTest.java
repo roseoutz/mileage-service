@@ -1,35 +1,18 @@
 package guide.triple.mileage.web;
 
 import guide.triple.mileage.common.constant.ActionType;
-import guide.triple.mileage.domain.dto.MileageUserInfoDTO;
 import guide.triple.mileage.web.controller.MileageApiController;
 import guide.triple.mileage.web.dto.EventsRequestDTO;
 import guide.triple.mileage.web.dto.ResponseDTO;
-import guide.triple.mileage.web.service.MileagePointService;
-import guide.triple.mileage.web.service.MileageUserInfoService;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MockMvcBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.filter.CharacterEncodingFilter;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -102,23 +85,6 @@ public class ReivewPointApiTest {
         assert responseDTO != null;
         Assertions.assertTrue(responseDTO.isSuccess());
 
-    }
-
-
-    @Test
-    @Order(5)
-    @DisplayName("리뷰 포인트 적립 히스토리 API 테스트")
-    void get_user_point_history_test() {
-        ResponseEntity<ResponseDTO> responseDTOResponseEntity = mileageApiController.history(
-                UUID.nameUUIDFromBytes("test".getBytes(StandardCharsets.UTF_8)).toString(),
-                10,
-                1
-        );
-
-        ResponseDTO responseDTO = responseDTOResponseEntity.getBody();
-        assert responseDTO != null;
-        Assertions.assertEquals(HttpStatus.OK, responseDTOResponseEntity.getStatusCode());
-        Assertions.assertTrue(responseDTO.isSuccess());
     }
 
 }

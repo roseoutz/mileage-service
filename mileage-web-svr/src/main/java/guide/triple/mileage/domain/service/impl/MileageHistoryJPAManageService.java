@@ -67,9 +67,10 @@ public class MileageHistoryJPAManageService implements MileageHistoryManageServi
         entity.setPlaceId(dto.getPlaceId());
         entity.setReviewId(dto.getReviewId());
         entity.setActionType(dto.getActionType());
-        entity.setHasText(dto.isHasText());
-        entity.setHasBonus(dto.isHasBonus());
-        entity.setHasImage(dto.isHasImage());
+        entity.setTextPoint(dto.getTextPoint());
+        entity.setBonusPoint(dto.getBonusPoint());
+        entity.setImagePoint(dto.getImagePoint());
+        entity.setEarnedPoint(dto.getTextPoint() + dto.getBonusPoint() + dto.getImagePoint());
 
         return entity;
     }
@@ -81,9 +82,10 @@ public class MileageHistoryJPAManageService implements MileageHistoryManageServi
                 .userId(entity.getUserId())
                 .placeId(entity.getPlaceId())
                 .reviewId(entity.getReviewId())
-                .hasText(entity.isHasText())
-                .hasImage(entity.isHasImage())
-                .hasBonus(entity.isHasBonus())
+                .textPoint(entity.getTextPoint())
+                .imagePoint(entity.getImagePoint())
+                .bonusPoint(entity.getBonusPoint())
+                .earnedPoint(entity.getEarnedPoint())
                 .actionType(entity.getActionType())
                 .insertTime(entity.getInsertTime())
                 .updateTime(entity.getUpdateTime())
