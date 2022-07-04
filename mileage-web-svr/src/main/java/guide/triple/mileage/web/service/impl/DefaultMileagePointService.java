@@ -69,14 +69,7 @@ public class DefaultMileagePointService implements MileagePointService {
     }
 
     private MileageReviewDTO deleteReview(EventsRequestDTO requestDTO) {
-        reviewService.delete(toReviewDTO(requestDTO));
-
-        return MileageReviewDTO
-                .builder()
-                .userId(requestDTO.getUserId())
-                .placeId(requestDTO.getPlaceId())
-                .reviewId(requestDTO.getReviewId())
-                .build();
+        return reviewService.delete(toReviewDTO(requestDTO));
     }
 
     private MileageReviewDTO toReviewDTO(EventsRequestDTO requestDTO) {
@@ -85,8 +78,8 @@ public class DefaultMileagePointService implements MileagePointService {
                 .userId(requestDTO.getUserId())
                 .placeId(requestDTO.getPlaceId())
                 .reviewId(requestDTO.getReviewId())
-                .hasText(requestDTO.getContent() != null && requestDTO.getContent().length() > 0)
-                .hasImage(requestDTO.getAttachedPhotoIds() != null && !requestDTO.getAttachedPhotoIds().isEmpty())
+                .text(requestDTO.getContent() != null && requestDTO.getContent().length() > 0)
+                .image(requestDTO.getAttachedPhotoIds() != null && !requestDTO.getAttachedPhotoIds().isEmpty())
                 .build();
     }
 
@@ -102,9 +95,9 @@ public class DefaultMileagePointService implements MileagePointService {
                 .userId(reviewDTO.getUserId())
                 .placeId(reviewDTO.getPlaceId())
                 .reviewId(reviewDTO.getReviewId())
-                .hasBonus(reviewDTO.isHasBonus())
-                .hasImage(reviewDTO.isHasImage())
-                .hasText(reviewDTO.isHasText())
+                .bonusPoint(reviewDTO.getBonusPoint())
+                .imagePoint(reviewDTO.getImagePoint())
+                .textPoint(reviewDTO.getTextPoint())
                 .build();
     }
 }

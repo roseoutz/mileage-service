@@ -53,8 +53,8 @@ public class ReviewPointTest {
                 .userId(getUUID("userId" + idSalt))
                 .placeId(getUUID("placeId" + placeSalt))
                 .reviewId(getUUID("reviewId" + reviewSalt))
-                .hasText(true)
-                .hasImage(true)
+                .text(true)
+                .image(true)
                 .build();
     }
 
@@ -103,9 +103,9 @@ public class ReviewPointTest {
     void update_reviewTest() {
         MileageReviewDTO reviewDTO = getMileageReviewDTO("1", "1", "1");
         MileageReviewDTO modifiedReviewDTO = reviewDTO.toBuilder()
-                .hasImage(false)
+                .image(false)
                 // Test시엔 첫 리뷰이므로 무조건 True이다.
-                .hasBonus(true)
+                .bonus(true)
                 .build();
 
         mileageReviewManageService.update(modifiedReviewDTO);

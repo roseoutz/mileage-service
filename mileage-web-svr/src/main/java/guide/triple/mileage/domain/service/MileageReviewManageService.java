@@ -19,5 +19,5 @@ public interface MileageReviewManageService {
 
     MileageReviewDTO update(MileageReviewDTO mileageReviewDTO);
 
-    void delete(MileageReviewDTO mileageReviewDTO);
+    MileageReviewDTO delete(MileageReviewDTO mileageReviewDTO);
 }

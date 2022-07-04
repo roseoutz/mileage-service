@@ -54,18 +54,6 @@ public class MileageHistoryJPAManageService implements MileageHistoryManageServi
                 .collect(Collectors.toList());
     }
 
-    private Specification<MileageHistoryEntity> toSpecification(final SearchParam searchParam) {
-        return (root, query, criteriaBuilder) -> {
-
-            if (searchParam.getSearchKeyword().containsKey("userId")) {
-                String userId = (String) searchParam.getSearchKeyword().get("userId");
-                criteriaBuilder.equal(root.get("userId"), userId);
-            }
-
-            return criteriaBuilder.conjunction();
-        };
-    }
-
     private MileageHistoryEntity toEntity(MileageHistoryDTO dto) {
         MileageHistoryEntity entity = new MileageHistoryEntity();
         entity.setOid(UUID.randomUUID().toString());
@@ -73,9 +61,10 @@ public class MileageHistoryJPAManageService implements MileageHistoryManageServi
         entity.setPlaceId(dto.getPlaceId());
         entity.setReviewId(dto.getReviewId());
         entity.setActionType(dto.getActionType());
-        entity.setHasText(dto.isHasText());
-        entity.setHasBonus(dto.isHasBonus());
-        entity.setHasImage(dto.isHasImage());
+        entity.setTextPoint(dto.getTextPoint());
+        entity.setBonusPoint(dto.getBonusPoint());
+        entity.setImagePoint(dto.getImagePoint());
+        entity.setEarnedPoint(dto.getTextPoint() + dto.getBonusPoint() + dto.getImagePoint());
 
         return entity;
     }
@@ -87,9 +76,10 @@ public class MileageHistoryJPAManageService implements MileageHistoryManageServi
                 .userId(entity.getUserId())
                 .placeId(entity.getPlaceId())
                 .reviewId(entity.getReviewId())
-                .hasText(entity.isHasText())
-                .hasImage(entity.isHasImage())
-                .hasBonus(entity.isHasBonus())
+                .textPoint(entity.getTextPoint())
+                .imagePoint(entity.getImagePoint())
+                .bonusPoint(entity.getBonusPoint())
+                .earnedPoint(entity.getEarnedPoint())
                 .actionType(entity.getActionType())
                 .insertTime(entity.getInsertTime())
                 .updateTime(entity.getUpdateTime())
