@@ -10,10 +10,9 @@ Triple Backend 사전과제 제출물 입니다.
 
 - **Language : Java 11**
 - **Build Tool : Gradle 7.4**
-- **Framework : Spring Web MVC, Spring WEBFLUX**
-- **ORM : Spring Data JPA, Spring Data R2DBC, Spring Data Reactive Mongo**
-- **Database : Mysql 8.0.29,Mongo**
-- **Messaging : Kafka&Zookeeper**
+- **Framework : Spring Web MVC**
+- **ORM : Spring Data JPA**
+- **Database : Mysql 8.0.29**
 - **Cache : Hazelcast**
 
 # 실행 방법
