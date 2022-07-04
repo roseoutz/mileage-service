@@ -34,8 +34,9 @@ logging:
 springdoc:
   api-docs:
     enabled: true
+    path: /api/docs
   swagger-ui:
-    path: /v3/api-docs/swagger.html
+    path: swagger.html
 
 ---
 spring:
