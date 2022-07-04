@@ -5,13 +5,18 @@ server:
 
 spring:
   application:
-    name: MILEAGE_COMMAND_SERVER
+    name: MILEAGE-COMMAND-SERVICE
   profiles:
-    active: test
+    active: local
   messages:
     basename: classpath:messages/message-error
     encoding: UTF-8
     cache-duration: 10
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
 eureka:
   client:
@@ -20,10 +25,11 @@ eureka:
     service-url:
       defaultZone: http://127.0.0.1:12000/eureka/
   instance:
-    hostname: mileageCommandServer
+    hostname: mileageCommandService
     prefer-ip-address: true
     lease-renewal-interval-in-seconds: 30
     lease-expiration-duration-in-seconds: 90
+
 
 springdoc:
   api-docs:

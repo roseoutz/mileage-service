@@ -104,19 +104,6 @@ public class ReivewPointApiTest {
 
     }
 
-    @Test
-    @Order(4)
-    @DisplayName("사용자 포인트 조회 API 테스트")
-    void get_user_point_test() {
-        ResponseEntity<ResponseDTO> responseDTOResponseEntity = mileageApiController.get(UUID.nameUUIDFromBytes("test".getBytes(StandardCharsets.UTF_8)).toString());
-
-        ResponseDTO responseDTO = responseDTOResponseEntity.getBody();
-        assert responseDTO != null;
-        MileageUserInfoDTO mileageUserInfoDTO = (MileageUserInfoDTO) responseDTO.getResult();
-        Assertions.assertEquals(HttpStatus.OK, responseDTOResponseEntity.getStatusCode());
-        Assertions.assertTrue(responseDTO.isSuccess());
-        Assertions.assertEquals(0, mileageUserInfoDTO.getPoint());
-    }
 
     @Test
     @Order(5)

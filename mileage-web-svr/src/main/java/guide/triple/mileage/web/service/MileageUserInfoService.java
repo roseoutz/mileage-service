@@ -5,7 +5,5 @@ import guide.triple.mileage.web.dto.ResponseDTO;
 
 public interface MileageUserInfoService {
 
-    ResponseDTO get(String userId);
-
     ResponseDTO getHistory(SearchParam searchParam);
 }

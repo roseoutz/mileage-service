@@ -1,9 +1,7 @@
 package guide.triple.mileage.domain.service.impl;
 
-import guide.triple.mileage.common.constant.ActionType;
 import guide.triple.mileage.common.constant.ErrorCode;
 import guide.triple.mileage.common.exception.MileageException;
-import guide.triple.mileage.common.util.StringCheckUtil;
 import guide.triple.mileage.domain.dto.MileageConfigDTO;
 import guide.triple.mileage.domain.dto.MileageReviewDTO;
 import guide.triple.mileage.domain.entity.MileageReviewEntity;
@@ -12,10 +10,12 @@ import guide.triple.mileage.domain.repository.MileageReviewRepository;
 import guide.triple.mileage.domain.service.MileageConfigManageService;
 import guide.triple.mileage.domain.service.MileageReviewManageService;
 import guide.triple.mileage.domain.service.MileageUserInfoManageService;
+import guide.triple.mileage.message.KafkaProducer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -35,6 +35,9 @@ import java.util.concurrent.ConcurrentHashMap;
 @RequiredArgsConstructor
 @Service("mileageReviewJPAService")
 public class MileageReviewJPAManageService implements MileageReviewManageService {
+
+    @Resource(name = "userInfoProducer")
+    private KafkaProducer<String> kafkaProducer;
 
     private final MileageReviewRepository mileageReviewRepository;
 
@@ -168,6 +171,11 @@ public class MileageReviewJPAManageService implements MileageReviewManageService
 
     private void updatePoint(String userId, long text, long image, long bonus) {
         userInfoService.update(userId, text + image + bonus);
+        syncUserRequest(userId);
+    }
+
+    private void syncUserRequest(String userId) {
+        kafkaProducer.sendMessage(userId);
     }
 
     private MileageReviewEntity toEntity(MileageReviewDTO dto) {

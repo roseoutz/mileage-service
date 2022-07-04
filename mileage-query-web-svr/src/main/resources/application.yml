@@ -1,11 +1,11 @@
 server:
-  port: 9201
+  port: 9301
   servlet:
     application-display-name: Mileage Query Server
 
 spring:
   application:
-    name: MILEAGE_QUERY_SERVER
+    name: MILEAGE-QUERY-SERVICE
   profiles:
     active: test
 
@@ -16,11 +16,20 @@ eureka:
     service-url:
       defaultZone: http://127.0.0.1:12000/eureka/
   instance:
-    hostname: authService
+    hostname: mileageQueryService
     prefer-ip-address: true
     lease-renewal-interval-in-seconds: 30
     lease-expiration-duration-in-seconds: 90
 
+logging:
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+  charset:
+    console: UTF-8
+  level:
+    root: info
+    log4j2: info
+    guide.triple: info
 
 springdoc:
   api-docs:

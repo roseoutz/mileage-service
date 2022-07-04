@@ -1,5 +1,5 @@
 server:
-  port: 11000
+  port: 80
 
 eureka:
   client:
@@ -8,6 +8,16 @@ eureka:
     service-url:
       defaultZone: http://127.0.0.1:12000/eureka
 
+logging:
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+  charset:
+    console: UTF-8
+  level:
+    root: info
+    log4j2: info
+    guide.triple: info
+
 spring:
   main:
     web-application-type: reactive
@@ -15,28 +25,22 @@ spring:
     name: mileage-gateway
   cloud:
     gateway:
+      default-filters:
+        - name: GlobalLoggingFilter
+          args:
+            baseMessage: Spring Cloud Gateway GlobalFilter
+            preLogger: true
+            postLogger: true
       routes:
-        - id: boardDevStudyService
-          uri: lb://BTAKA-BOARD-DEV-STUDY-SERVICE
+        - id: mileageCommandService
+          uri: lb://MILEAGE-COMMAND-SERVICE
           predicates:
-            - Path=/board/dev/**
-          filters:
-            - RewritePath=/board/dev/?(?<path>.*), /api/v1//board/dev/$\{path}
-        - id: authService
-          uri: lb://BTAKA-AUTH-SERVICE
+            - Path=/events
+        - id: mileageUserInfoService
+          uri: lb://MILEAGE-QUERY-SERVICE
           predicates:
-            - Path=/auth/**
-          filters:
-            - RewritePath=/auth/?(?<path>.*), /api/v1/auth/$\{path}
-        - id: userService
-          uri: lb://BTAKA-AUTH-SERVICE
+            - Path=/get/**
+        - id: mileageHistoryService
+          uri: lb://MILEAGE-QUERY-SERVICE
           predicates:
-            - Path=/user/**
-          filters:
-            - RewritePath=/user/?(?<path>.*), /api/v1/user/$\{path}
-        - id: configService
-          uri: lb://BTAKA-CONFIG-SERVICE
-          predicates:
-            - Path=/config/**
-          filters:
-            - RewritePath=/config/?(?<path>.*), /api/v1/config/$\{path}
+            - Path=/history/**
