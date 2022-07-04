@@ -20,8 +20,9 @@ Triple Backend 사전과제 제출물 입니다.
     - mileage-service/docker 디렉토리로 이동
     - 명령어 실행 : docker-compose up -d
 
-2. IDE로 서버 기동 순서
-    - mileage-web-svr 서버 기동
+2. 서버 기동 순서
+    - IDE를 통해 기동 시 IDE로 mileage-web-svr 서버 기동
+    - gradle을 통해 기동 시 gradlew bootjar 명령어 실행 후 gradlew bootRun
 
 ---
 
