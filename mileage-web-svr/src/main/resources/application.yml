@@ -15,7 +15,7 @@ spring:
   application:
     name: MILEAGE
   profiles:
-    active: test
+    active: local
   messages:
     basename: classpath:messages/message-error
     encoding: UTF-8

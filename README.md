@@ -10,30 +10,24 @@ Triple Backend 사전과제 제출물 입니다.
 
 - **Language : Java 11**
 - **Build Tool : Gradle 7.4**
-- **Database : Mysql 8.0.29**
+- **Framework : Spring Web MVC, Spring WEBFLUX**
+- **ORM : Spring Data JPA, Spring Data R2DBC, Spring Data Reactive Mongo**
+- **Database : Mysql 8.0.29,Mongo**
+- **Messaging : Kafka&Zookeeper**
 - **Cache : Hazelcast**
 
 # 실행 방법
-![image2](https://user-images.githubusercontent.com/29092884/177048336-3f0a1c10-5fc0-4901-bf5a-047758c01dd0.png)
-
-1. Docker를 이용한 실행 방법
+1. Docker를 이용하여 mysql 기동
     - mileage-service/docker 디렉토리로 이동
     - 명령어 실행 : docker-compose up -d
-    - docker image를 hub.docker에 업로드하여 외부로 인터넷이 되실 경우 사용 가능합니다.
 
-1. idea를 이용한 실행 방법
-    - git clone [https://github.com/roseoutz/mileage-service.git](https://github.com/roseoutz/mileage-service.git)
-    - mileage-web-svr/src/main/resources/application.yml 에서 profile 확인
-
-      (local or prod 권장, prod 시 swagger 사용 불가)
-
-    - spring.datasource.hikari.jdbc-url, username, password 수정
-    - mileage-service/schema/001.schema_ddl.sql DB 반영
-    - application 구동
+2. IDE로 서버 기동 순서
+    - mileage-web-svr 서버 기동
 
 ---
 
 ## API 목록
+서버 URL : http://localhost:9201
 
 - **리뷰 포인트 적립**
     - URI : /event
