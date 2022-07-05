@@ -13,6 +13,7 @@ services:
 
   mysql:
     image: mysql:8.0.29
+    platform: linux/x86_64
     container_name: "mariadb"
     restart: always
     ports:

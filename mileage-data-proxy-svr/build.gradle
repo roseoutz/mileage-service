@@ -12,6 +12,15 @@ ext {
     springCloudVersion = '2021.0.3'
 }
 
+jar {
+	enabled = false
+}
+
+bootJar {
+	archivesBaseName = 'triple-mileage-ms-svr'
+	archiveFileName = 'triple-mileage-ms-svr.jar'
+}
+
 repositories {
     mavenCentral()
 }
