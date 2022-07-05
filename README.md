@@ -74,5 +74,8 @@ Triple Backend 사전과제 제출물 입니다.
 
 ## ERD
 DB Schema 위치 : mileage-service/schema/001.schema_ddl.sql
+
+
+
 ![img.png](erd.png)
 
