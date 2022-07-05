@@ -6,6 +6,10 @@
 
 Triple Backend 사전과제 제출물 입니다.
 
+
+
+cqrs branch에 cqrs패턴을 사용한 버전도 구성하였습니다.
+
 **사용 기술 스택**
 
 - **Language : Java 11**
