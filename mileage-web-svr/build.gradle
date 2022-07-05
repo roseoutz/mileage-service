@@ -1,11 +1,33 @@
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+
 plugins {
 	id 'org.springframework.boot'
 	id 'io.spring.dependency-management'
 	id 'java'
+	id 'com.palantir.docker' version '0.34.0'
+}
+
+ext {
+	BUILD_VERSION = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH_mm_ss"))
+}
+jar {
+	enabled = false
+}
+
+bootJar {
+	archivesBaseName = 'triple-mileage-ms-svr'
+	archiveFileName = 'triple-mileage-ms-svr.jar'
 }
 
 repositories {
 	mavenCentral()
+}
+
+configurations {
+	all {
+		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+	}
 }
 
 dependencies {
@@ -13,7 +35,16 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'com.h2database:h2'
+
+	implementation 'io.springfox:springfox-swagger2:3.0.0'
+	implementation 'org.springdoc:springdoc-openapi-webmvc-core:1.6.9'
+	implementation 'org.springdoc:springdoc-openapi-ui:1.6.9'
+
+	implementation 'mysql:mysql-connector-java:8.0.29'
+
+	implementation 'com.hazelcast:hazelcast-spring:5.1.2'
 
 	compileOnly 'org.projectlombok:lombok'
 
@@ -22,6 +53,7 @@ dependencies {
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
 }
 
 tasks.named('test') {
