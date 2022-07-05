@@ -6,8 +6,15 @@ server:
 spring:
   application:
     name: MILEAGE_DATA_PROXY_SERVER
-  profiles:
-    active: local
+  r2dbc:
+    url: r2dbc:mysql://127.0.0.1:3306/triple?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    username: test
+    password: test123
+    pool:
+      enabled: true
+      initial-size: 10
+      max-size: 20
+      max-idle-time: 30m
   kafka:
     consumer:
       bootstrap-servers: localhost:9092
@@ -34,58 +41,3 @@ logging:
     root: info
     guide.triple: info
     org.springframework.data.r2dbc: info
-
----
-spring:
-  config:
-    activate:
-      on-profile: test
-  r2dbc:
-    url: r2dbc:h2:mem:mileage;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    username: sa
-    password:
-
----
-spring:
-  config:
-    activate:
-      on-profile: local
-  r2dbc:
-    url: r2dbc:mysql://127.0.0.1:3306/triple?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
-    username: test
-    password: test123
-    pool:
-      enabled: true
-      initial-size: 10
-      max-size: 20
-      max-idle-time: 30m
-
----
-spring:
-  config:
-    activate:
-      on-profile: prod
-  r2dbc:
-    url: r2dbc:mysql://127.0.0.1:3306/triple?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
-    username: test
-    password: test123
-    pool:
-      enabled: true
-      initial-size: 10
-      max-size: 20
-      max-idle-time: 30m
-
----
-spring:
-  config:
-    activate:
-      on-profile: docker
-  r2dbc:
-    url: r2dbc:mysql://mysql:3306/triple?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
-    username: test
-    password: test123
-    pool:
-      enabled: true
-      initial-size: 10
-      max-size: 20
-      max-idle-time: 30m

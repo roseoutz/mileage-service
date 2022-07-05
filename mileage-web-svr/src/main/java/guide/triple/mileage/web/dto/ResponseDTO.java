@@ -1,6 +1,5 @@
 package guide.triple.mileage.web.dto;
 
-import guide.triple.mileage.common.constant.ErrorCode;
 import lombok.Builder;
 import lombok.Getter;
 
