@@ -16,6 +16,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class MileageUserInfoDocument {
 
     @Id
+    private String oid;
     private String userId;
 
     private long point;

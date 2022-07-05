@@ -31,6 +31,7 @@ public class MileageUserInfoKafkaMessageService implements MileageUserInfoMessag
 
     private Mono<MileageUserInfoDocument> saveMongoRepository(MileageUserInfoR2Entity mileageUserInfoR2Entity) {
         MileageUserInfoDocument document = toDocument(mileageUserInfoR2Entity);
+        document.setOid(mileageUserInfoR2Entity.getUserId());
         document.setUserId(mileageUserInfoR2Entity.getUserId());
         document.setPoint(mileageUserInfoR2Entity.getPoint());
         return mongoRepository.save(document);

@@ -15,6 +15,8 @@ public class MileageUserInfoDocument {
 
     @Indexed
     @Id
+    private String oid;
+
     private String userId;
 
     private long point;
